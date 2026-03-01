@@ -1,0 +1,103 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Nachiket Kulkarni — Senior DevOps / Platform Engineer"
+  description="Portfolio of Nachiket Kulkarni, Senior DevOps / Platform Engineer at Autodesk. Cloud infrastructure, MLOps, Kubernetes, Terraform."
+>
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Hello, I'm</p>
+      <h1 class="hero-name">Nachiket Kulkarni</h1>
+      <p class="hero-role">Senior DevOps / Platform Engineer</p>
+      <p class="hero-summary">
+        Building scalable cloud infrastructure, data platforms, and MLOps pipelines.
+      </p>
+      <div class="hero-cta">
+        <a href="/projects" class="btn btn-primary">View Projects</a>
+        <a href="/contact" class="btn btn-outline">Contact Me</a>
+      </div>
+      <div class="hero-chips">
+        <span class="chip">Kubernetes</span>
+        <span class="chip">Terraform</span>
+        <span class="chip">ArgoCD</span>
+        <span class="chip">AWS</span>
+        <span class="chip">MLOps</span>
+        <span class="chip">GitOps</span>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    min-height: calc(100vh - var(--header-h));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+  }
+
+  .hero-inner {
+    max-width: 700px;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-name {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-role {
+    font-family: var(--font-mono);
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--accent-light);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-summary {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+</style>

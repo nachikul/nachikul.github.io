@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="About — Nachiket Kulkarni"
+  description="About Nachiket Kulkarni — Senior DevOps / Platform Engineer with 8+ years of experience in cloud infrastructure, MLOps, and developer platforms."
+>
+  <div class="page">
+    <h1 class="page-title">About Me</h1>
+    <p class="page-subtitle">Senior DevOps / Platform Engineer · Pune, India</p>
+
+    <div class="about-content">
+      <p>
+        I'm a Senior Software Engineer in DevOps at <strong>Autodesk</strong>, where I build and maintain
+        cloud infrastructure and MLOps pipelines for enterprise clients including <strong>Pixar</strong>,
+        <strong>Hyundai</strong>, and <strong>L&T</strong>. With 8+ years in the industry, I specialize in
+        bridging the gap between software engineering and infrastructure, enabling teams to ship faster and
+        more reliably.
+      </p>
+
+      <p>
+        My experience spans leading DevOps transformations — from containerization and Kubernetes adoption
+        to full GitOps workflows with ArgoCD and Kyverno policy enforcement. Before Autodesk, I built
+        CI/CD pipelines and cloud automation at <strong>NICE</strong>, contributed to platform engineering
+        at <strong>Coupa Software</strong>, and honed my quality engineering skills at <strong>TIBCO Software</strong>.
+      </p>
+
+      <p>
+        I hold a <strong>Master of Science in Computer Science from Georgia Tech</strong>, with coursework
+        focused on cloud computing, distributed systems, and machine learning. This academic foundation
+        complements my hands-on experience in deploying AI/ML workloads in production, building scalable
+        data platforms, and designing infrastructure for high-availability systems.
+      </p>
+
+      <p>
+        I'm passionate about automation, infrastructure as code, GitOps, and building developer
+        platforms that improve engineering velocity. When I'm not working on cloud infrastructure, I enjoy
+        exploring agentic AI tooling, contributing to open-source projects, and writing about DevOps
+        patterns and platform engineering practices.
+      </p>
+    </div>
+
+    <div class="skills">
+      <h2>Core Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Cloud & Infrastructure</h3>
+          <div class="tags">
+            <span class="tag">AWS</span>
+            <span class="tag">GCP</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Helm</span>
+            <span class="tag">Terraform</span>
+            <span class="tag">Pulumi</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>CI/CD & GitOps</h3>
+          <div class="tags">
+            <span class="tag">ArgoCD</span>
+            <span class="tag">GitHub Actions</span>
+            <span class="tag">Jenkins</span>
+            <span class="tag">Kyverno</span>
+            <span class="tag">Flux</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>MLOps & Data</h3>
+          <div class="tags">
+            <span class="tag">MLflow</span>
+            <span class="tag">Kubeflow</span>
+            <span class="tag">Airflow</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Streamlit</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Bash</span>
+            <span class="tag">Go</span>
+            <span class="tag">YAML</span>
+            <span class="tag">HCL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+    max-width: 720px;
+  }
+
+  .about-content p {
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .about-content strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .skills h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-light);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-group h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    font-family: var(--font-mono);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    background: var(--bg-secondary);
+    color: var(--accent-light);
+    border: 1px solid var(--border);
+    font-family: var(--font-mono);
+  }
+</style>

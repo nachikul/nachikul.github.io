@@ -1,0 +1,30 @@
+[
+  {
+    "company": "Autodesk",
+    "role": "Senior Software Engineer — DevOps",
+    "period": "Jul 2023 – Present",
+    "location": "Pune, India",
+    "description": "Building and maintaining cloud infrastructure and MLOps pipelines for enterprise clients including Pixar, Hyundai, and L&T. Leading DevOps transformations using Kubernetes, ArgoCD, and Terraform."
+  },
+  {
+    "company": "NICE",
+    "role": "Senior DevOps Engineer",
+    "period": "Jul 2021 – Jul 2023",
+    "location": "Pune, India",
+    "description": "Designed and managed CI/CD pipelines, container orchestration with Kubernetes, and cloud infrastructure automation on AWS."
+  },
+  {
+    "company": "Coupa Software",
+    "role": "Software Engineer in Test",
+    "period": "May 2020 – Jul 2021",
+    "location": "Pune, India",
+    "description": "Developed automated test frameworks, improved CI/CD pipeline reliability, and contributed to platform engineering initiatives."
+  },
+  {
+    "company": "TIBCO Software",
+    "role": "Member of Technical Staff — QA",
+    "period": "Sep 2016 – Apr 2020",
+    "location": "Pune, India",
+    "description": "Worked on quality assurance for enterprise middleware products, built automation frameworks, and collaborated with global engineering teams."
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "ResumeSummariser",
+    "description": "AI-powered resume summariser that extracts key skills and experience using LLMs, deployed on Kubernetes with GitOps.",
+    "tech": ["Python", "FastAPI", "Streamlit", "ArgoCD", "Kubernetes"],
+    "github": "https://github.com/nachikul/ResumeSummariser",
+    "url": ""
+  },
+  {
+    "name": "DevOpsProject",
+    "description": "Full DevOps stack with Helm charts and Redis deployed on Amazon EKS, provisioned with Terraform.",
+    "tech": ["Terraform", "Helm", "EKS", "Redis", "AWS"],
+    "github": "https://github.com/nachikul/DevOpsProject",
+    "url": ""
+  },
+  {
+    "name": "gitcommitsummary",
+    "description": "CLI tool that generates natural language summaries of git commit history using AI.",
+    "tech": ["Python", "CLI", "Git", "AI"],
+    "github": "https://github.com/nachikul/gitcommitsummary",
+    "url": ""
+  }
+]
