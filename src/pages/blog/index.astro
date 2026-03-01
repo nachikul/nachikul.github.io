@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const topics = [
+  'GitOps in practice — ArgoCD patterns and pitfalls',
+  'Building MLOps pipelines from scratch',
+  'Terraform at scale — module design and state management',
+  'Kubernetes cost optimisation strategies',
+  'Platform engineering vs. DevOps — what\'s the difference?',
+  'SLOs that actually work for your team',
+  'Python tooling for infrastructure engineers',
+];
+---
+
+<BaseLayout
+  title="Blog"
+  description="Coming soon — DevOps, platform engineering, MLOps, and cloud infrastructure insights from Nachiket Kulkarni."
+>
+  <section class="page-section blog-page">
+    <p class="section-label">Writing</p>
+    <h1 class="section-title">Blog</h1>
+
+    <div class="coming-soon-card">
+      <div class="cs-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+      </div>
+      <h2>Coming Soon</h2>
+      <p>
+        I'm working on a series of posts about DevOps, platform engineering, and MLOps.
+        Content will start appearing here soon — stay tuned!
+      </p>
+    </div>
+
+    <div class="topics-section">
+      <h2 class="topics-heading">Planned Topics</h2>
+      <ul class="topics-list">
+        {topics.map((topic) => (
+          <li class="topic-item">
+            <span class="topic-dot" aria-hidden="true" />
+            {topic}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="notify-section">
+      <p class="notify-text">
+        In the meantime, follow me on
+        <a href="https://www.linkedin.com/in/nkulkarni9493" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        or check out my
+        <a href="https://github.com/nachikul" target="_blank" rel="noopener noreferrer">GitHub</a>
+        for the latest work.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-page { max-width: 760px; }
+
+  .coming-soon-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cs-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(13,148,136,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    margin: 0 auto 1.5rem;
+  }
+
+  .coming-soon-card h2 {
+    font-size: 1.75rem;
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+  }
+
+  .coming-soon-card p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    max-width: 50ch;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  .topics-heading {
+    font-size: 1.1rem;
+    color: var(--text-heading);
+    margin-bottom: 1.25rem;
+  }
+
+  .topics-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .topic-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+  }
+  .topic-item:hover { border-color: var(--accent); }
+
+  .topic-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .notify-section {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .notify-text {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+</style>

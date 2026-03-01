@@ -1,0 +1,20 @@
+[
+  {
+    "name": "ResumeSummariser",
+    "description": "AI-powered resume summariser that extracts key information and generates structured summaries using LLMs.",
+    "tags": ["Python", "FastAPI", "Streamlit", "ArgoCD", "Kubernetes"],
+    "url": "https://github.com/nachikul/ResumeSummariser"
+  },
+  {
+    "name": "DevOpsProject",
+    "description": "Production-ready Helm chart deployment with Redis on Amazon EKS, fully provisioned with Terraform.",
+    "tags": ["Terraform", "Helm", "EKS", "AWS"],
+    "url": "https://github.com/nachikul/DevOpsProject"
+  },
+  {
+    "name": "gitcommitsummary",
+    "description": "CLI tool that summarises Git commit history into readable changelogs and diff reports.",
+    "tags": ["Python", "CLI", "Git"],
+    "url": "https://github.com/nachikul/gitcommitsummary"
+  }
+]

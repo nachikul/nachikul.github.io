@@ -1,0 +1,48 @@
+[
+  {
+    "company": "Autodesk",
+    "role": "Senior Software Engineer — DevOps",
+    "period": "Jul 2023 – Present",
+    "location": "Pune, India",
+    "highlights": [
+      "Lead DevOps and platform engineering for Pixar, Hyundai, and L&T client workloads.",
+      "Designed and maintained cloud-native data pipelines and MLOps infrastructure on AWS and GCP.",
+      "Implemented GitOps workflows with ArgoCD and Helm across multi-cluster Kubernetes environments.",
+      "Drove SRE practices: SLO/SLI definition, on-call runbooks, and incident post-mortems."
+    ]
+  },
+  {
+    "company": "NICE",
+    "role": "Senior DevOps Engineer",
+    "period": "Jul 2021 – Jul 2023",
+    "location": "Pune, India",
+    "highlights": [
+      "Built and maintained CI/CD pipelines using Jenkins, GitHub Actions, and ArgoCD.",
+      "Managed Kubernetes clusters (EKS/GKE) and Terraform-based IaC for cloud provisioning.",
+      "Automated infrastructure observability with Prometheus, Grafana, and ELK Stack.",
+      "Reduced deployment lead time by 40% through pipeline optimisation and environment standardisation."
+    ]
+  },
+  {
+    "company": "Coupa Software",
+    "role": "Software Engineer in Test",
+    "period": "May 2020 – Jul 2021",
+    "location": "Pune, India",
+    "highlights": [
+      "Developed automated test frameworks for REST APIs and microservices using Python and pytest.",
+      "Integrated test suites into CI pipelines, improving release confidence and velocity.",
+      "Collaborated with DevOps teams to shift-left quality practices across the SDLC."
+    ]
+  },
+  {
+    "company": "TIBCO Software",
+    "role": "Member of Technical Staff — QA",
+    "period": "Sep 2016 – Apr 2020",
+    "location": "Pune, India",
+    "highlights": [
+      "Automated regression testing for TIBCO middleware products using Java and Selenium.",
+      "Designed and executed performance and load testing strategies.",
+      "Mentored junior QA engineers and maintained test documentation."
+    ]
+  }
+]
