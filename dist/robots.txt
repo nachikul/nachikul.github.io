@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://nachikul.github.io/sitemap-index.xml
