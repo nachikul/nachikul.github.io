@@ -1,6 +1,7 @@
 # nachikul.github.io
 
 Personal portfolio website for **Nachiket Kulkarni** — Senior DevOps / Platform Engineer.
+Showcasing the projects and experience.
 
 Built with [Astro](https://astro.build) and deployed to [GitHub Pages](https://pages.github.com/).
 
