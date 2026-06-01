@@ -1,0 +1,379 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Operators vs. GitOps: You've Been Asking the Wrong Question"
+  description="Two reconciliation loops, one control plane — and why the smartest platform teams stopped picking a side."
+>
+  <article class="post-page">
+    <div class="post-header">
+      <p class="section-label">Blog</p>
+      <h1 class="post-title">Operators vs. GitOps: You've Been Asking the Wrong Question</h1>
+      <p class="post-subtitle">Two reconciliation loops, one control plane — and why the smartest platform teams stopped picking a side</p>
+      <div class="post-meta">
+        <time datetime="2026-06-01">June 1, 2026</time>
+        <span class="meta-sep">·</span>
+        <span>8 min read</span>
+      </div>
+      <div class="post-tags">
+        <span class="tag">Kubernetes</span>
+        <span class="tag">GitOps</span>
+        <span class="tag">Operators</span>
+        <span class="tag">Platform Engineering</span>
+        <span class="tag">DevOps</span>
+      </div>
+    </div>
+
+    <div class="post-body">
+      <p class="lead">
+        "Operators vs. GitOps" is a false dichotomy. These technologies answer different questions — they complement rather than compete with each other. The real question is how to chain them together.
+      </p>
+
+      <h2>The Two Separate Questions</h2>
+      <p>
+        Before picking a side, it helps to notice that the two camps are answering entirely different questions:
+      </p>
+      <ul>
+        <li><strong>Operator pattern</strong>: <em>"Who turns a desired-state object into real infrastructure?"</em></li>
+        <li><strong>GitOps</strong>: <em>"Where does the desired state live, and how does it get into the cluster?"</em></li>
+      </ul>
+      <p>
+        One is an engine with no source of truth; the other is a source of truth with no engine. The debate was never really a debate at all.
+      </p>
+
+      <h2>What Is an Operator?</h2>
+      <p>
+        An Operator uses the Kubernetes control loop to manage applications. It works through two building blocks:
+      </p>
+      <ol>
+        <li><strong>Custom Resources</strong> — new object types added to the API server via a <code>CustomResourceDefinition</code></li>
+        <li><strong>Custom Controllers</strong> — processes that watch those objects and act on them continuously</li>
+      </ol>
+      <p>
+        Think of it like a thermostat. You set the target temperature (the <code>spec</code>), it reads the room (the <code>status</code>), and acts to close the gap — forever. The loop never sleeps.
+      </p>
+      <p>
+        Where Operators get interesting is at the infrastructure bridge. If desired state lives in the Kubernetes API server but the real resource exists outside the cluster — an S3 bucket, an RDS instance, a Route 53 record — the controller bridges them. It reads from etcd and writes to AWS. Kubernetes becomes the universal control plane for infrastructure that has no native concept of Kubernetes.
+      </p>
+
+      <h2>ACK: Operators at the Cloud Layer</h2>
+      <p>
+        AWS Controllers for Kubernetes (ACK) is a clean demonstration of this pattern. A manifest like this:
+      </p>
+      <pre><code>apiVersion: s3.services.k8s.aws/v1alpha1
+kind: Bucket
+metadata:
+  name: my-app-data
+spec:
+  name: my-app-data-prod</code></pre>
+      <p>
+        ...gets picked up by the ACK S3 controller, which translates it into AWS API calls and reconciles the real bucket against the spec continuously. Add a lifecycle rule to the spec and the controller applies it. Remove the resource and the bucket is deleted.
+      </p>
+      <p>
+        The gap ACK leaves open: it handles cloud reconciliation but says nothing about manifest provenance, audit trails, or rollback mechanisms. Where did that manifest come from? Who approved it? What was the state before this change? ACK doesn't know and doesn't care.
+      </p>
+
+      <h2>What Is GitOps?</h2>
+      <p>
+        GitOps is an operational discipline — formalized by the CNCF's OpenGitOps project — where Git serves as the single source of truth, and an automated agent continuously reconciles live systems against what Git declares.
+      </p>
+      <p>
+        Argo CD, the reference implementation, works through a pull-based model: an agent inside the cluster polls Git repositories and syncs the cluster state to match. Every desired state is a Git commit. Rollback is <code>git revert</code>. Audit trail is <code>git log</code>. Change review is a pull request.
+      </p>
+      <p>
+        GitOps' blind spot is the mirror image of ACK's. Once manifests reach the cluster, Argo CD can reconcile Kubernetes resources — but provisioning actual cloud resources (S3 buckets, RDS instances, VPCs) requires external knowledge it doesn't have. It can apply a <code>Bucket</code> custom resource to the cluster, but it can't make that bucket exist in AWS on its own.
+      </p>
+
+      <h2>Side-by-Side</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Aspect</th>
+              <th>Operator Pattern (ACK)</th>
+              <th>GitOps (Argo CD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>What it is</strong></td>
+              <td>API extension: CRDs + controllers</td>
+              <td>Discipline + in-cluster sync agent</td>
+            </tr>
+            <tr>
+              <td><strong>Source of truth</strong></td>
+              <td>Custom resource (etcd)</td>
+              <td>Git repository</td>
+            </tr>
+            <tr>
+              <td><strong>Reconciles</strong></td>
+              <td>Cluster ↔ external system</td>
+              <td>Cluster ↔ Git</td>
+            </tr>
+            <tr>
+              <td><strong>How state enters</strong></td>
+              <td>Agnostic — kubectl, CI, or GitOps</td>
+              <td>Git commit, pulled by agent</td>
+            </tr>
+            <tr>
+              <td><strong>Drift handling</strong></td>
+              <td>Reverts cloud drift to CR spec</td>
+              <td>Reverts in-cluster drift to Git</td>
+            </tr>
+            <tr>
+              <td><strong>Audit / rollback</strong></td>
+              <td>None inherent</td>
+              <td>Native — Git history, PRs, git revert</td>
+            </tr>
+            <tr>
+              <td><strong>Blind spot</strong></td>
+              <td>Where manifests originate</td>
+              <td>Provisioning non-native cloud resources</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The Complementary Stack</h2>
+      <p>
+        The pattern that scales at large multi-cluster, multi-cloud fleets is a three-layer architecture:
+      </p>
+      <ol>
+        <li><strong>Underlay</strong> — clusters and cloud resources provisioned via infrastructure Operators like Crossplane or ACK</li>
+        <li><strong>Cluster add-ons</strong> — monitoring, policy enforcement, cost aggregation, all managed as GitOps applications</li>
+        <li><strong>End-user services</strong> — application workloads deployed via standard GitOps pipelines</li>
+      </ol>
+      <p>
+        The flow across all three layers is the same: Git holds desired state → Argo CD reconciles Git into the cluster → the Operator reconciles resulting custom resources into cloud infrastructure. Two chained reconciliation loops. Each guards against a different class of drift — in-cluster drift on one side, cloud-side drift on the other.
+      </p>
+      <p>
+        CI/CD pipelines push changes but have no awareness of what happens afterward. Argo CD provides the continuous watch that CI lacks. Operators extend that watch past the cluster boundary into cloud APIs. Chain them together and you have end-to-end drift detection from Git commit to AWS resource.
+      </p>
+
+      <h2>Production Reality</h2>
+      <p>
+        Wiring infrastructure Operators cleanly into GitOps tooling is still rough. Crossplane's composite resource model is powerful but has a steep learning curve. ACK's per-service controllers mean managing a fleet of CRDs across every AWS service you touch. ApplicationSets in Argo CD help manage the declarative grouping but add another layer of abstraction to reason about.
+      </p>
+      <p>
+        The teams doing this well have accepted that the seam between GitOps and Operators requires deliberate design. They treat the CRD manifest as the API contract between the two layers: GitOps manages its lifecycle, the Operator manages its consequences.
+      </p>
+
+      <h2>When to Use What</h2>
+      <ul>
+        <li><strong>Need cloud resources managed by control loops with a native Kubernetes API?</strong> → Operator (ACK for AWS, Crossplane for multi-cloud)</li>
+        <li><strong>Need reviewed, versioned, auditable changes with auto-revert on drift?</strong> → GitOps (Argo CD or Flux)</li>
+        <li><strong>Need both?</strong> → Layer them. You almost certainly need both.</li>
+      </ul>
+
+      <blockquote>
+        The interesting platforms are the ones that stopped arguing and started chaining the loops together.
+      </blockquote>
+
+      <p>
+        The winning pattern isn't picking a side — it's recognising that each fills the other's strategic gap. Operators without GitOps have no audit trail. GitOps without Operators can't reach cloud infrastructure. Together, they cover the full surface area of a production platform.
+      </p>
+
+      <div class="post-footer">
+        <p>
+          Originally published on <a href="https://nachikul.substack.com/p/operators-vs-gitopsyouve-been-asking" target="_blank" rel="noopener noreferrer">Substack</a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="back-link-wrap">
+      <a href="/blog" class="back-link">← Back to Blog</a>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+
+  .post-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-title {
+    font-size: clamp(1.6rem, 4vw, 2.25rem);
+    color: var(--text-heading);
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .post-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .meta-sep { opacity: 0.5; }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(13, 148, 136, 0.25);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  /* ── Prose ── */
+  .post-body {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .post-body .lead {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .post-body h2 {
+    font-size: 1.35rem;
+    color: var(--text-heading);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .post-body p {
+    margin-bottom: 1.25rem;
+  }
+
+  .post-body ul,
+  .post-body ol {
+    margin: 0 0 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .post-body li {
+    line-height: 1.7;
+  }
+
+  .post-body code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875em;
+    color: var(--accent-light);
+    background: var(--accent-dim);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+  }
+
+  .post-body pre {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-body pre code {
+    background: none;
+    padding: 0;
+    color: var(--text);
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .post-body blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background: var(--bg-card);
+    border-radius: 0 10px 10px 0;
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  /* ── Table ── */
+  .table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    background: var(--bg-card);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  /* ── Post footer ── */
+  .post-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .back-link-wrap {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .back-link {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--accent); }
+</style>
