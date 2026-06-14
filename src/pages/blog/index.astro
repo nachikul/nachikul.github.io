@@ -3,7 +3,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const posts = [
   {
+    slug: null,
+    url: 'https://substack.com/@nachikul/note/c-276293690?r=8w7cv&utm_source=notes-share-action&utm_medium=web',
+    title: 'I Built an AI World Cup Predictor Because My Fantasy Team Was Embarrassing Me',
+    description:
+      'Fantasy Football, Spec Driven Development, and a $5 AI budget. How I used the World Cup as a forcing function to learn something new — and shipped a live Claude-powered match predictor.',
+    date: '2026-06-15',
+    dateLabel: 'June 15, 2026',
+    readTime: '6 min read',
+    tags: ['AI', 'SDD', 'World Cup', 'Side Project', 'Anthropic'],
+    external: true,
+  },
+  {
     slug: 'operators-vs-gitops',
+    url: null,
     title: "Operators vs. GitOps: You've Been Asking the Wrong Question",
     description:
       'Two reconciliation loops, one control plane — and why the smartest platform teams stopped picking a side.',
@@ -11,6 +24,7 @@ const posts = [
     dateLabel: 'June 1, 2026',
     readTime: '8 min read',
     tags: ['Kubernetes', 'GitOps', 'Operators', 'Platform Engineering'],
+    external: false,
   },
 ];
 ---
@@ -28,11 +42,17 @@ const posts = [
 
     <div class="posts-list">
       {posts.map((post) => (
-        <a href={`/blog/${post.slug}`} class="post-card">
+        <a
+          href={post.external ? post.url : `/blog/${post.slug}`}
+          target={post.external ? '_blank' : '_self'}
+          rel={post.external ? 'noopener noreferrer' : undefined}
+          class="post-card"
+        >
           <div class="post-card-meta">
             <time datetime={post.date}>{post.dateLabel}</time>
             <span class="meta-sep">·</span>
             <span>{post.readTime}</span>
+            {post.external && <span class="external-badge">Substack</span>}
           </div>
           <h2 class="post-card-title">{post.title}</h2>
           <p class="post-card-desc">{post.description}</p>
@@ -41,7 +61,7 @@ const posts = [
               <span class="tag">{tag}</span>
             ))}
           </div>
-          <span class="read-more">Read post →</span>
+          <span class="read-more">{post.external ? 'Read on Substack →' : 'Read post →'}</span>
         </a>
       ))}
     </div>
@@ -96,6 +116,18 @@ const posts = [
   }
 
   .meta-sep { opacity: 0.5; }
+
+  .external-badge {
+    font-size: 0.68rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(13, 148, 136, 0.25);
+    padding: 0.1rem 0.45rem;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+  }
 
   .post-card-title {
     font-size: 1.25rem;

@@ -1,5 +1,12 @@
 [
   {
+    "name": "WC26 AI Predictor",
+    "description": "Live AI match predictor for FIFA World Cup 2026. Per-player ratings (0–10) with reasoning, scoreline predictions, and tactical analysis. Claude Sonnet primary, Groq fallback, $5 hard budget cap. Built to explore Spec Driven Development with Zod.",
+    "tags": ["Next.js", "TypeScript", "Claude API", "Zod", "Fly.io", "SDD"],
+    "url": "https://github.com/nachikul/WC26_Predictor",
+    "liveUrl": "https://wc26-predictor.fly.dev"
+  },
+  {
     "name": "ResumeSummariser",
     "description": "AI-powered resume summariser that extracts key information and generates structured summaries using LLMs.",
     "tags": ["Python", "FastAPI", "Streamlit", "ArgoCD", "Kubernetes"],
