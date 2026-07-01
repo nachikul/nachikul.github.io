@@ -1,8 +1,20 @@
 [
   {
     "company": "Autodesk",
+    "role": "Principal Platform Engineer",
+    "period": "Jun 2026 – Present",
+    "location": "Pune, India",
+    "highlights": [
+      "Own platform engineering strategy and technical direction for enterprise client workloads spanning Pixar, Hyundai, and L&T.",
+      "Set architectural standards for internal developer platforms, golden paths, and self-service infrastructure across teams.",
+      "Lead cross-functional design reviews and mentor senior/staff engineers on platform, MLOps, and cloud-native architecture.",
+      "Drive org-wide adoption of GitOps, SRE practices, and cost/observability standards across multi-cluster Kubernetes environments."
+    ]
+  },
+  {
+    "company": "Autodesk",
     "role": "Senior Software Engineer — DevOps",
-    "period": "Jul 2023 – Present",
+    "period": "Jul 2023 – Jun 2026",
     "location": "Pune, India",
     "highlights": [
       "Lead DevOps and platform engineering for Pixar, Hyundai, and L&T client workloads.",

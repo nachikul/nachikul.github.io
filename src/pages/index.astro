@@ -8,6 +8,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <section class="hero">
     <div class="hero-inner">
+      <div class="avatar-ring">
+        <span class="avatar-initials">NK</span>
+      </div>
       <p class="hero-label">👋 Hello, I'm</p>
       <h1 class="hero-name">Nachiket Kulkarni</h1>
       <h2 class="hero-role">Principal Platform Engineer</h2>
@@ -64,7 +67,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span class="highlight-label">CS — Georgia Tech</span>
       </div>
       <div class="highlight-card">
-        <span class="highlight-num">∞</span>
+        <span class="highlight-num highlight-num-alt">∞</span>
         <span class="highlight-label">Systems Improved</span>
       </div>
     </div>
@@ -84,6 +87,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     min-height: calc(100vh - 64px - 6rem);
   }
 
+  .avatar-ring {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent), var(--accent-2), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    margin-bottom: 1.5rem;
+  }
+
+  .avatar-initials {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--text-heading);
+  }
+
   .hero-label {
     font-size: 1.1rem;
     color: var(--text-muted);
@@ -92,7 +121,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .hero-name {
     font-size: clamp(2.5rem, 6vw, 4rem);
-    color: var(--text-heading);
+    background: linear-gradient(135deg, var(--text-heading), var(--accent-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     margin-bottom: 0.4rem;
     letter-spacing: -0.02em;
   }
@@ -162,13 +194,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-radius: 99px;
     background: var(--accent-dim);
     color: var(--accent);
-    border: 1px solid rgba(13,148,136,0.3);
+    border: 1px solid rgba(99,102,241,0.3);
     font-weight: 600;
   }
 
   /* ── Terminal ── */
   .terminal {
-    background: #0d1117;
+    background: var(--terminal-bg);
     border-radius: 12px;
     border: 1px solid var(--border);
     overflow: hidden;
@@ -178,7 +210,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .terminal-bar {
-    background: #1e293b;
+    background: var(--terminal-bar-bg);
     padding: 0.6rem 1rem;
     display: flex;
     align-items: center;
@@ -246,6 +278,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--accent);
     line-height: 1;
   }
+
+  .highlight-num-alt { color: var(--accent-2); }
 
   .highlight-label {
     color: var(--text-muted);

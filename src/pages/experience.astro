@@ -5,13 +5,13 @@ import experience from '../data/experience.json';
 
 <BaseLayout
   title="Experience"
-  description="Nachiket Kulkarni's professional experience — Autodesk, NICE, Coupa Software, TIBCO Software. 8+ years in DevOps and platform engineering."
+  description="Nachiket Kulkarni's professional experience — Principal Platform Engineer at Autodesk, plus NICE, Coupa Software, TIBCO Software. Close to 10 years in DevOps and platform engineering."
 >
   <section class="page-section">
     <p class="section-label">Career</p>
     <h1 class="section-title">Work Experience</h1>
     <p class="section-desc">
-      8+ years across enterprise software, SaaS, and platform engineering — from QA automation
+      Close to 10 years across enterprise software, SaaS, and platform engineering — from QA automation
       to leading cloud infrastructure at scale.
     </p>
 
@@ -24,12 +24,18 @@ import experience from '../data/experience.json';
           </div>
           <div class="timeline-card">
             <div class="timeline-header">
-              <div>
-                <h2 class="job-company">{job.company}</h2>
-                <h3 class="job-role">{job.role}</h3>
+              <div class="job-heading">
+                <span class="company-badge" aria-hidden="true">{job.company.charAt(0)}</span>
+                <div>
+                  <h2 class="job-company">{job.company}</h2>
+                  <h3 class="job-role">{job.role}</h3>
+                </div>
               </div>
               <div class="job-meta">
-                <span class="job-period">{job.period}</span>
+                <span class="job-period-row">
+                  <span class="job-period">{job.period}</span>
+                  {i === 0 && <span class="current-pill">Current</span>}
+                </span>
                 <span class="job-location">{job.location}</span>
               </div>
             </div>
@@ -110,6 +116,27 @@ import experience from '../data/experience.json';
     flex-wrap: wrap;
   }
 
+  .job-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+
+  .company-badge {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .job-company {
     font-size: 1.2rem;
     color: var(--accent);
@@ -131,11 +158,28 @@ import experience from '../data/experience.json';
     flex-shrink: 0;
   }
 
+  .job-period-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
   .job-period {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
     color: var(--accent);
     background: var(--accent-dim);
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+
+  .current-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-2);
+    background: color-mix(in srgb, var(--accent-2) 15%, transparent);
     padding: 0.2rem 0.6rem;
     border-radius: 99px;
     white-space: nowrap;
